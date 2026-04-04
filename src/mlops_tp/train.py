@@ -26,10 +26,11 @@ logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
 
 def main():
-    # Docker MLflow
-    mlflow.set_tracking_uri("http://localhost:5000")
+    # MLflow optionnel selon l'environnement
+    mlflow_uri = os.environ.get("MLFLOW_TRACKING_URI", None)
+    if mlflow_uri:
+        mlflow.set_tracking_uri(mlflow_uri)
     mlflow.set_experiment("heart_disease_mlops")
-
     logger.info("Chargement des données")
     df = pd.read_csv(config.DATA_PATH)
     logger.info(f"Dataset : {df.shape[0]} lignes, {df.shape[1]} colonnes")
