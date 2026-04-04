@@ -1,0 +1,14 @@
+{
+  "dataset": "heart_disease.csv",
+  "shape": [
+    303,
+    14
+  ],
+  "splits": {
+    "train": 211,
+    "val": 46,
+    "test": 46
+  },
+  "random_state": 42,
+  "mlflow_run_id": "a4210d28f70b438890f4f7a2709acd8a"
+}

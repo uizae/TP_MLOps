@@ -1,0 +1,41 @@
+
+services:
+  api:
+    build:
+      context: .
+      dockerfile: Dockerfile.api
+    container_name: heart-api
+    ports:
+      - "8000:8000"
+    environment:
+      - PYTHONUNBUFFERED=1
+    networks:
+      - app-net
+
+  frontend:
+    build:
+      context: .
+      dockerfile: Dockerfile.streamlit
+    container_name: heart-frontend
+    ports:
+      - "8501:8501"
+    depends_on:
+      - api
+    networks:
+      - app-net
+
+  mlflow:
+    image: python:3.11-slim
+    container_name: heart-mlflow
+    ports:
+      - "5000:5000"
+    command: bash -c "pip install mlflow && mlflow server --host 0.0.0.0 --port 5000 --backend-store-uri sqlite:///mlflow.db --default-artifact-root ./mlruns"
+    volumes:
+      - ./mlruns:/mlruns
+      - ./mlflow.db:/mlflow.db
+    networks:
+      - app-net
+
+networks:
+  app-net:
+    driver: bridge
