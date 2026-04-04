@@ -21,15 +21,15 @@ class PredictionRequest(BaseModel):
 model = None
 try:
     model = joblib.load(config.MODEL_PATH)
-    print("✅ Modèle chargé au démarrage")
+    print(" Modèle chargé au démarrage")
 except Exception as e:
-    print(f"❌ Erreur chargement modèle : {e}")
+    print(f" Erreur chargement modèle : {e}")
 
 app = FastAPI(title="Heart Disease API", version=config.MODEL_VERSION)
 
 @app.get("/health")
 async def health_check():
-    return {"status": "healthy", "model_loaded": model is not None}
+    return {"status": "healthy", "model_loaded": model is not None, "version": "1.0.1"}
 
 @app.get("/metadata")
 async def get_metadata():
