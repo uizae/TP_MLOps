@@ -22,9 +22,6 @@ import matplotlib.pyplot as plt
 import seaborn as sns
 import mlops_tp.config as config
 import time
-
-mlflow.set_experiment("heart_disease_mlops")
-
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
 
@@ -98,6 +95,8 @@ def main():
         # Log métriques MLflow
         for key, value in metrics.items():
             mlflow.log_metric(key, float(value))
+
+        # Ajout du timestamp et des hyperparamètres pour la traçabilité
         metrics['timestamp'] = time.strftime('%Y-%m-%d %H:%M:%S')
         metrics['hyperparameters'] = {
             'model_type': 'RandomForest',
@@ -106,8 +105,6 @@ def main():
             'test_size': config.TEST_SPLIT,
             'val_size': config.VAL_SPLIT
         }
-        with open(config.METRICS_PATH, 'w') as f:
-            json.dump(metrics, f, indent=2)
         
         logger.info(f"Accuracy validation : {metrics['accuracy_val']:.3f}")
         

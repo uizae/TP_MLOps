@@ -6,3 +6,4 @@ mlflow.db
 mlruns/
 confusion_matrix.png
 *.joblib
+confusion_matrix*.png
