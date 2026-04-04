@@ -19,7 +19,7 @@ def predict(features: dict) -> dict:
     """Prédiction Heart Disease"""
     model = load_model()
     
-    # ✅ FIX : Créer DataFrame avec NOMS de colonnes (pas array brut)
+    # FIX : Créer DataFrame avec NOMS de colonnes (pas array brut)
     feature_names = ['age', 'sex', 'cp', 'trestbps', 'chol', 'fbs', 
                     'restecg', 'thalach', 'exang', 'oldpeak', 'slope', 'ca', 'thal']
     

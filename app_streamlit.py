@@ -1,7 +1,8 @@
 import streamlit as st
 import requests
 
-API_URL = "http://api:8000"  # nom du service Docker FastAPI (voir compose)
+import os
+API_URL = os.environ.get("API_URL", "https://heart-disease-api-n9jg.onrender.com")  # nom du service Docker FastAPI (voir compose)
 
 st.set_page_config(page_title="🫀 Maladie cardiaque", page_icon="🫀")
 
