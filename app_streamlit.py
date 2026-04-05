@@ -22,7 +22,7 @@ def predict_api(features, api_url):
 st.markdown("""
     <h1 style='text-align: center; color: #c0392b;'>Detecteur de Maladie Cardiaque</h1>
     <p style='text-align: center; color: gray; font-size: 14px;'>
-        Projet MLOps - Master 1 | OULD SLIMANE Ouiza
+        Projet MLOps - Master 1 IA | OULD SLIMANE Ouiza
     </p>
     <hr>
 """, unsafe_allow_html=True)
@@ -42,7 +42,7 @@ st.sidebar.markdown("---")
 st.sidebar.markdown("""
 <p style='font-size: 12px; color: gray;'>
 OULD SLIMANE Ouiza<br>
-Master 1 - IA et Genie Logiciel<br>
+Master 1 - IA<br>
 TP MLOps 2025-2026
 </p>
 """, unsafe_allow_html=True)
