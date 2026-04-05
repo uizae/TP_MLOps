@@ -1,13 +1,14 @@
 {
   "accuracy_train": 1.0,
-  "accuracy_val": 0.782608695652174,
+  "accuracy_val": 0.8043478260869565,
   "f1_train": 1.0,
-  "f1_val": 0.8076923076923077,
-  "timestamp": "2026-04-04 18:50:49",
+  "f1_val": 0.8235294117647058,
+  "timestamp": "2026-04-05 11:44:53",
   "hyperparameters": {
     "model_type": "RandomForest",
     "n_estimators": 100,
     "random_state": 42,
+    "class_weight": "balanced",
     "test_size": 0.15,
     "val_size": 0.15
   }
