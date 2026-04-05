@@ -22,19 +22,46 @@ api_url = st.sidebar.text_input("URL", API_URL)
 tab1, tab2 = st.tabs(["1. Simple", "2. CSV"])
 
 with tab1:
-    col1, col2 = st.columns(2)
+    col1, col2, col3 = st.columns(3)
+    
     with col1:
         age = st.number_input("Age", 20, 80, 50)
-        sex = st.selectbox("Sexe", [0, 1])
+        sex = st.selectbox("Sexe (0=Femme, 1=Homme)", [0, 1])
+        cp = st.selectbox("Type douleur thoracique (cp)", [0, 1, 2, 3])
+        trestbps = st.number_input("Tension au repos (trestbps)", 80, 220, 120)
+        chol = st.number_input("Cholesterol (chol)", 100, 600, 250)
+    
     with col2:
-        cp = st.selectbox("CP", [0, 1, 2, 3])
+        fbs = st.selectbox("Glycemie a jeun > 120 (fbs)", [0, 1])
+        restecg = st.selectbox("ECG repos (restecg)", [0, 1, 2])
+        thalach = st.number_input("Freq cardiaque max (thalach)", 60, 220, 150)
+        exang = st.selectbox("Angine effort (exang)", [0, 1])
+    
+    with col3:
+        oldpeak = st.number_input("Oldpeak", 0.0, 10.0, 1.0, 0.1)
+        slope = st.selectbox("Pente ST (slope)", [0, 1, 2])
+        ca = st.selectbox("Nb vaisseaux colores (ca)", [0, 1, 2, 3, 4])
+        thal = st.selectbox("Thal", [0, 1, 2, 3])
 
     if st.button("Predire"):
-        data = {"age": age, "sex": sex, "cp": cp, "trestbps": 120, "chol": 250,
-                "fbs": 0, "restecg": 0, "thalach": 150, "exang": 0, "oldpeak": 1,
-                "slope": 2, "ca": 0, "thal": 2}
+        data = {
+            "age": age, "sex": sex, "cp": cp, "trestbps": trestbps,
+            "chol": chol, "fbs": fbs, "restecg": restecg, "thalach": thalach,
+            "exang": exang, "oldpeak": oldpeak, "slope": slope,
+            "ca": ca, "thal": thal
+        }
         result = predict_api(data, api_url)
-        st.write("Resultat:", result)
+        
+        pred = result["prediction"]
+        p_malade = result["proba"]["disease"]
+        p_sain = result["proba"]["no_disease"]
+        
+        if pred == 1:
+            st.error(f"Risque de maladie cardiaque ({p_malade*100:.1f}%)")
+        else:
+            st.success(f"Pas de maladie cardiaque ({p_sain*100:.1f}%)")
+        
+        st.json(result)
 
 with tab2:
     st.header("Upload et predire CSV")
